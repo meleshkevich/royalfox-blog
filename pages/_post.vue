@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="container">
+      <NavbarBootstrap />
+    </div>
     <main class="container">
       <div class="row g-5">
         <div class="col-md-8">
@@ -14,20 +17,19 @@
             </p>
             <hr />
 
-            <h2>Comments</h2>
+            <h2>Comments:</h2>
 
-            <div v-for="c in comments" :key="c.id">
-              <blockquote class="blockquote">
-                <p>{{ c.name }}</p>
-              </blockquote>
+            <div>
+              <Comment
+                v-for="c in comments"
+                :key="c.id"
+                :name="c.name"
+                :comment="c.comment"
+                :createdAt="c.createdAt"
+                :avatar="c.avatar"
+              ></Comment>
             </div>
           </article>
-
-          <nav class="blog-pagination" aria-label="Pagination">
-            <NuxtLink to="/" class="btn btn-outline-primary rounded-pill"
-              >Back</NuxtLink
-            >
-          </nav>
         </div>
         <div class="col-md-4">
           <img
@@ -40,9 +42,12 @@
         </div>
       </div>
     </main>
+    <FooterBootstrap />
   </div>
 </template>
 <script>
+import Comment from "../components/comment.vue";
+import FooterBootstrap from "../components/footer-bootstrap.vue";
 export default {
   data() {
     return {
@@ -58,7 +63,6 @@ export default {
       const postData = request.json();
       postData.then(data => {
         // console.log(data);
-
         data.map(el => {
           el.slug === this.$route.params.post ? (this.post = el) : null;
         });
@@ -75,10 +79,10 @@ export default {
       });
     }
   },
-
   mounted() {
     this.getPost();
     this.getComments();
-  }
+  },
+  components: { Comment, FooterBootstrap }
 };
 </script>
