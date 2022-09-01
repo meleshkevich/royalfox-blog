@@ -44,6 +44,7 @@
 <script>
 import NavbarBootstrap from "./navbar-bootstrap.vue";
 import FooterBootstrap from "./footer-bootstrap.vue";
+import formatDate from "../assets/formatDate";
 
 export default {
   data() {
@@ -59,12 +60,7 @@ export default {
       const postData = request.json();
       postData.then(data => {
         this.posts = data;
-
-        data.map(el => {
-          const date = new Date(el.createdAt);
-          const dateFormated = date.toLocaleString("en-US");
-          el.createdAt = dateFormated;
-        });
+        formatDate(data);
       });
     }
   },

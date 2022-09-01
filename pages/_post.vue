@@ -46,6 +46,7 @@
   </div>
 </template>
 <script>
+import formatDate from "../assets/formatDate";
 import Comment from "../components/comment.vue";
 import FooterBootstrap from "../components/footer-bootstrap.vue";
 export default {
@@ -64,11 +65,7 @@ export default {
       postData.then(data => {
         data.map(el => {
           el.slug === this.$route.params.post ? (this.post = el) : null;
-          data.map(el => {
-            const date = new Date(el.createdAt);
-            const dateFormated = date.toLocaleString("en-US");
-            el.createdAt = dateFormated;
-          });
+          formatDate(data);
         });
       });
     },
@@ -79,11 +76,7 @@ export default {
       const commentData = request.json();
       commentData.then(data => {
         this.comments = data;
-        data.map(el => {
-          const date = new Date(el.createdAt);
-          const dateFormated = date.toLocaleString("en-US");
-          el.createdAt = dateFormated;
-        });
+        formatDate(data);
       });
     }
   },
