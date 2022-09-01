@@ -62,9 +62,13 @@ export default {
       );
       const postData = request.json();
       postData.then(data => {
-        // console.log(data);
         data.map(el => {
           el.slug === this.$route.params.post ? (this.post = el) : null;
+          data.map(el => {
+            const date = new Date(el.createdAt);
+            const dateFormated = date.toLocaleString("en-US");
+            el.createdAt = dateFormated;
+          });
         });
       });
     },
@@ -74,8 +78,12 @@ export default {
       );
       const commentData = request.json();
       commentData.then(data => {
-        // console.log(data);
         this.comments = data;
+        data.map(el => {
+          const date = new Date(el.createdAt);
+          const dateFormated = date.toLocaleString("en-US");
+          el.createdAt = dateFormated;
+        });
       });
     }
   },

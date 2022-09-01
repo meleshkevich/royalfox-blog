@@ -3,6 +3,7 @@
     <div class="card">
       <div class="row g-0">
         <div class="card-header">
+          Added on:
           {{ createdAt }}
         </div>
         <div class="col-md-4">

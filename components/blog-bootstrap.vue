@@ -14,7 +14,7 @@
               }}</strong>
               <h3 class="mb-0">{{ p.title }}</h3>
               <div class="mb-1 text-muted">
-                {{ p.createdAt | formatDate }}
+                {{ p.createdAt }}
               </div>
               <p class="card-text mb-auto text-truncated">
                 {{ p.content }}
@@ -59,6 +59,12 @@ export default {
       const postData = request.json();
       postData.then(data => {
         this.posts = data;
+
+        data.map(el => {
+          const date = new Date(el.createdAt);
+          const dateFormated = date.toLocaleString("en-US");
+          el.createdAt = dateFormated;
+        });
       });
     }
   },
